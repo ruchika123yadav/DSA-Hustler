@@ -362,4 +362,239 @@ class Solution:
 
 # OPTIMAL SOLUTION
 
+class Solution {
 
+    public void reverse(int[] nums,int start,int end){
+        while(start<end){
+            int temp=nums[start];
+            nums[start]=nums[end];
+            nums[end]=temp;
+
+            start++;
+            end--;
+        }
+    }
+    public void nextPermutation(int[] nums) {
+        
+        int n=nums.length;
+        int bre=-1;
+        int smallNum=Integer.MAX_VALUE;
+        int swap=-1;
+        for(int i=n-2;i>=0;i--){
+            if(nums[i]<nums[i+1]){
+                bre=i;
+                break;
+            }
+        }
+ 
+        if(bre==-1){
+            reverse(nums,0,n-1);
+            return;
+        }
+
+        for(int i=n-1;i>bre;i--){
+            if(nums[bre]<nums[i]){
+                if(smallNum>nums[i]){
+                    smallNum=nums[i];
+                    swap=i;
+                }
+            }
+        }
+
+        int temp=nums[bre];
+        nums[bre]=nums[swap];
+        nums[swap]=temp;
+
+        reverse(nums,bre+1,n-1);
+    }
+}
+
+
+#LEADERS IN ARRAY
+
+# OPTIMIZE SOLUTION-O(N) AND SPACE COMPLEXITY IN WORST CASE =O(N)
+
+class Solution:
+    def leaders(self, nums):
+        n=len(nums)
+        l=[]
+    
+        l.append(nums[n-1])
+
+        for i in range(n-2,-1,-1):
+            if nums[i]>l[-1]:
+                l.append(nums[i])
+              
+
+        l.reverse()
+        return l
+
+
+        
+
+# 1299 Replace element with greatest element on right side->https://leetcode.com/problems/replace-elements-with-greatest-element-on-right-side/description/
+class Solution:
+    def replaceElements(self, arr: List[int]) -> List[int]:
+
+        l=[]
+        n=len(arr)
+        l.append(-1)
+        max=arr[n-1]
+        if len(arr)==1:
+            return l
+
+        for i in range(n-2,-1,-1):
+            if max>arr[i] :
+                l.append(max)
+            else:
+                l.append(max)
+                max=arr[i]
+
+        l.reverse()
+        return l
+
+
+# 128  LONGEST CONSECUTIVE SEQUENCE->https://leetcode.com/problems/longest-consecutive-sequence/
+# TIME COMPLEXITY=O(nlog(n))
+
+class Solution:
+    def longestConsecutive(self, nums: List[int]) -> int:
+        n=len(nums)
+        if not nums:
+            return 0
+         
+    
+        nums.sort()
+        
+        count=1
+        maxx=1
+
+        for i in range(1,n):
+            if nums[i]==nums[i-1]:
+                continue
+            elif nums[i]==nums[i-1]+1:
+                count+=1
+            else:
+                count=1
+            maxx=max(maxx,count)
+
+        return maxx
+
+
+# 867 TRANSPOSE OF MXN MATRIX->https://leetcode.com/problems/transpose-matrix/
+
+#  complexity:O(M∗N)
+
+class Solution:
+    
+
+    def transpose(self, matrix: List[List[int]]) -> List[List[int]]:
+        n=len(matrix)
+        m=len(matrix[0])
+         
+        ans = [[] for _ in range(m)]
+
+        for i in range(n):
+            row=[]
+            for j in range(m):
+                ans[j].append(matrix[i][j])
+
+
+        return ans
+
+
+        
+# ROTATE IMAGE->https://leetcode.com/problems/rotate-image/description/
+# complexity=O(2n^2)
+
+class Solution:
+
+    def reverse(self,matrix: List[List[int]],i:int,n:int) -> None:
+        j=0
+        while(j<n):
+            temp=matrix[i][j]
+            matrix[i][j]=matrix[i][n]
+            matrix[i][n]=temp
+            j+=1
+            n-=1
+
+    def rotate(self, matrix: List[List[int]]) -> None:
+        """
+        Do not return anything, modify matrix in-place instead.
+        """
+        n=len(matrix)
+        m=len(matrix[0])
+
+        for i in range(n-1):
+            for j in range(i+1,n):
+                temp=matrix[i][j]
+                matrix[i][j]=matrix[j][i]
+                matrix[j][i]=temp
+
+        
+        for i in range(n):
+            self.reverse(matrix,i,n-1)
+
+        
+
+# LITTLE BIT BETTER SOLUTION ->Direct Rotation | 4-Way Swap | Two-Pointers | 1 Pass
+
+class Solution {
+    public void rotate(int[][] mat) {
+        int n = mat.length, k = n - 1;
+        for (int i = 0; i < n >> 1; i++)
+            for (int j = i; j < k - i; j++) {
+                int t = mat[i][j];
+                mat[i][j] = mat[k - j][i];
+                mat[k - j][i] = mat[k - i][k - j];
+                mat[k - i][k - j] = mat[j][k - i];
+                mat[j][k - i] = t;
+            }
+    }
+}
+
+
+# 54 SPIRAL MATRIX->https://leetcode.com/problems/spiral-matrix/description/
+
+# COMPLEXITY=O(nXm)
+
+
+
+class Solution {
+    public List<Integer> spiralOrder(int[][] n) {
+        List<Integer> list = new ArrayList<>();
+        int left=0;
+        int bottom=n.length-1;
+        int right=n[0].length-1;
+        int top=0;
+
+        while(top<=bottom && left<=right){
+
+            for(int i=left;i<=right;i++){
+                list.add(n[top][i]);
+            }
+            top++;
+
+            for(int i=top;i<=bottom;i++){
+                list.add(n[i][right]);
+            }
+            right--;
+             
+             if(top<=bottom){
+                for(int i=right;i>=left;i--){
+                list.add(n[bottom][i]);
+            }}
+            bottom--;
+            
+            if(left<=right){
+                 for(int i=bottom;i>=top;i--){
+                list.add(n[i][left]);
+            }
+            }
+           
+            left++;
+        }
+
+        return list;
+    }
+}
