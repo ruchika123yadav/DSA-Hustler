@@ -219,7 +219,47 @@ class Solution:
 
         return max_num
 
+
+# SUM OF BEAUTY OF ALL SUBSTRING
+# COMPLEXITY=O(n^2) AND SPACE COMPLEXITY=O(n)
+
+
+class Solution {
+    public int beautySum(String s) {
+        if(s.length()<=2){
+            return 0;
+        }
         
+        HashMap<Character,Integer> hm = new HashMap<>();
+         int sum=0;
+
+       
+       for(int i=0;i<s.length();i++){
+        for(int j=i;j<s.length();j++){
+            char c=s.charAt(j);
+              hm.put(c,hm.getOrDefault(c,0)+1);
+
+
+             int min=Integer.MAX_VALUE;
+             int max=0;
+             if(hm.size()>1){
+            for(char ch:hm.keySet()){
+                min=Math.min(min,hm.get(ch));
+                max=Math.max(max,hm.get(ch));
+            }
+            sum+=max-min; 
+        }
+         
+        }
+        hm.clear();
+         
+             
+       }
+
+       return sum;
+
+    }
+}
 
 
 
