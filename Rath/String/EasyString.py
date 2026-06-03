@@ -134,3 +134,97 @@ class Solution {
         return (s+s).contains(goal);
     }
 }
+
+
+# ISOMORPHIC STRING->https://leetcode.com/problems/isomorphic-strings/
+# COMPEXITY=O(n)
+
+class Solution:
+    def isIsomorphic(self, s: str, t: str) -> bool:
+        char_index_s={}
+        char_index_t={}
+
+        for i in range(len(s)):
+            if s[i] not in char_index_s:
+                char_index_s[s[i]]=i
+        
+            if t[i] not in char_index_t:
+                char_index_t[t[i]]=i
+
+            if char_index_s[s[i]]!=char_index_t[t[i]]:
+                return False
+
+        return True
+        
+
+
+# VALID ANAGRAM ->https://leetcode.com/problems/valid-anagram/
+# BRUTE FORCE
+# COMPLEXITY=O(nlog(n))
+
+class Solution:
+    def isAnagram(self, s: str, t: str) -> bool:
+        if(len(s)!=len(t)):
+            return False
+
+        return sorted(s)==sorted(t)
+
+
+# OPTIMAL APPRAOCH
+# COMPLEXITY=O(n)
+class Solution:
+    def isAnagram(self, s: str, t: str) -> bool:
+        if len(s) != len(t):
+            return False
+        for char in set(s):
+            if s.count(char) != t.count(char):
+                return False
+        return True
+
+
+# SORT CHARACTER BY FREQUENCY->https://leetcode.com/problems/sort-characters-by-frequency/
+# COMPLEXITY=
+class Solution:
+    def frequencySort(self, s: str) -> str:
+        count=Counter(s)
+
+
+        sorted_chars=sorted(s,key=lambda x:(-count[x],x))
+
+
+        return "".join(sorted_chars)
+        
+# Ab Python in saare Tuples ko aapas me compare karke sort karega (Chote se Bada):
+# Pehle Tuple ka pehla element dekhega: -2 sabse chota hai, to dono 'e' sabse pehle aa gaye.
+# Ab bache (-1, 't') aur (-1, 'r'). Dono ka pehla element -1 hai (Tie!).
+# Ab wo doosra element dekhega: 'r' ki ASCII value 't' se choti hoti hai (r pehle aata hai, t baad me). To 'r' pehle aayega aur 't' baad me.
+
+
+# MAXIMUM NESTING DEPTH OF THE PARENTHESIS->https://leetcode.com/problems/maximum-nesting-depth-of-the-parentheses/description/
+# COMPLEXITY=O(n)
+
+class Solution:
+    def maxDepth(self, s: str) -> int:
+
+        count=0
+        max_num=0
+
+        for i in range(len(s)):
+            if s[i]=="(":
+                count+=1
+                max_num=max(max_num,count)
+
+            elif s[i]==")":
+                count-=1
+
+        return max_num
+
+        
+
+
+
+
+
+        
+
+        
