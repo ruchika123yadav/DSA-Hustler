@@ -284,5 +284,112 @@ class Solution:
         return inp[k-1]
 
 
-# FINDING 3 DIGIT EVEN NUMBER->https://leetcode.com/problems/finding-3-digit-even-numbers/description/?envType=problem-list-v2&envId=recursion
+#  Sort a stack->https://takeuforward.org/plus/dsa/problems/sort-a-stack?source=strivers-a2z-dsa-track
+# COMPLEXITY=O(n^2)
 
+class Solution:
+    def sortStack(self, stack):
+        # Your code goes here
+        if not stack:
+            return
+
+        top_element=stack.pop()
+
+        self.sortStack(stack)
+        self.insertedElement(stack,top_element)
+
+        return
+
+    
+    def insertedElement(self,stack,top_element):
+        if not stack or top_element>=stack[-1]:
+            stack.append(top_element)
+            return
+        
+        remove=stack.pop()
+
+        self.insertedElement(stack,top_element)
+
+        stack.append(remove)
+
+
+# REVERSE THE STACK->https://takeuforward.org/plus/dsa/problems/reverse-a-stack?source=strivers-a2z-dsa-track
+# COMPLEXITY=O(n^2)
+
+
+class Solution:
+    def reverseStack(self, stack):
+        # Your code goes here
+
+        if not stack:
+            return
+
+        top_el=stack.pop()
+
+        self.reverseStack(stack)
+        self.reverse(stack,top_el)
+
+        return
+
+    def reverse(self,stack,top_el):
+        if not stack:
+            stack.append(top_el)
+            return
+
+        left=stack.pop()
+
+        self.reverse(stack,top_el)
+        stack.append(left)
+
+
+# GENERATE PARENTHESIS->https://leetcode.com/problems/generate-parentheses/
+# COMPLEXITY=hamare bss ki nhi🙂
+
+class Solution {
+    public List<String> generateParenthesis(int n) {
+        List<String> res = new ArrayList<String>();
+        recurse(res, 0, 0, "", n);
+        return res;
+    }
+    
+    public void recurse(List<String> res, int left, int right, String s, int n) {
+        if (s.length() == n * 2) {
+            res.add(s);
+            return;
+        }
+        
+        if (left < n) {
+            recurse(res, left + 1, right, s + "(", n);
+        }
+        
+        if (right < left) {
+            recurse(res, left, right + 1, s + ")", n);
+        }
+    }
+}
+
+# ishliye nhi pasand mujhe ye dimaag kharab bkwsss call stackkkkkkkkkkk😑
+
+
+# CONTRCUT STRING FROM BINARY TREE->https://leetcode.com/problems/construct-string-from-binary-tree/description/
+# COMPLEXITY=O(n)
+
+
+class Solution:
+    def tree2str(self, root: Optional[TreeNode]) -> str:
+        if root==None:
+            return ""
+
+        res=str(root.val)
+
+        left=self.tree2str(root.left)
+        right=self.tree2str(root.right)
+
+        if root.left==None and root.right==None:
+            return res
+
+        if root.right==None:
+            return res+"("+left+")"
+
+        return res+"("+left+")"+"("+right+")"
+        
