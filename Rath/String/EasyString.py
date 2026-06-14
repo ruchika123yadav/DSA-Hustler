@@ -357,8 +357,41 @@ class Solution:
         return False
 
 
-        
+# TWO POINTERS
+# REVERSE VOWLES OF STRING->https://leetcode.com/problems/reverse-vowels-of-a-string/description/
+# COMPLEXITY=O(n) SPACE COMPLEXITY=O(n)
+class Solution:
+    def reverseVowels(self, s: str) -> str:
 
+        left=0
+        right=len(s)-1
+        words=list(s)
+        vowels={'a','e','i','o','u','A','E','I','O','U'}
+
+        while left<right:
+            if words[left] in vowels and words[right] in vowels:
+                words[left], words[right] = words[right],words[left]
+                left+=1
+                right-=1
+
+            elif words[left] in vowels:
+                right-=1
+
+            elif words[right] in vowels:
+                left+=1
+            
+            else:
+                left+=1
+                right-=1
+
+            
+        return "".join(words)
+
+
+
+
+        
+        
         
 
         
