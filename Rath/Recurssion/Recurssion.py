@@ -658,6 +658,65 @@ class Solution:
             self.solve(newNum,n,res)
 
 
+
+
+# RAT IN A MAZE->https://www.geeksforgeeks.org/problems/rat-in-a-maze-problem/1
+# COMPLEXITY=O(3^n) SPACE COMPLEXITY=O(n^2)
+
+
+class Solution:
+    def ratInMaze(self, maze):
+        # code here
+        
+        res=[]
+        lis=[]
+        
+        if maze[0][0] == 0 or maze[len(maze)-1][len(maze)-1] == 0:
+            return res
+        
+        
+        self.solve(0,0,maze,res,lis)
+        
+        return res
+        
+        
+        
+    def solve(self,i,j,maze,res,lis):
+        n=len(maze)
+        if i<0 or i>=n or j<0 or j>=n or maze[i][j]==0:
+            return 
+        
+        if i==n-1 and j==n-1:
+            res.append("".join(lis))
+            return
+            
+        maze[i][j]=0
+        
+        # Bottom
+        lis.append('D')
+        self.solve(i+1,j,maze,res, lis)
+        lis.pop()
+        
+        # left
+        lis.append('L')
+        self.solve(i,j-1,maze,res,lis)
+        lis.pop()
+        
+        # Right
+        lis.append('R')
+        self.solve(i,j+1,maze,res,lis)
+        lis.pop()
+        
+        # Top
+        lis.append('U')
+        self.solve(i-1,j,maze,res,lis)
+        lis.pop()
+        
+        
+        
+        maze[i][j]=1
+        
+        
       
 
  

@@ -1,7 +1,7 @@
 # PROCESS STRING WITH SPECIAL OPERATIONS->https://leetcode.com/problems/process-string-with-special-operations-i/description/?envType=daily-question&envId=2026-06-16
 
 # COMPLEXITY=O(n)  FOR WORST CASE=O(n^2)
-
+# DATE-16/6
 class Solution:
     def processStr(self, s: str) -> str:
         
@@ -32,6 +32,7 @@ class Solution:
 # COMPLEXITY=O(2n) AND SPACE COMPLEXITY=O(1)
 # tagda question hai bhaiiii
 
+# DATE-17/6
 class Solution:
     def processStr(self, s: str, k: int) -> str:
 
@@ -79,3 +80,22 @@ class Solution:
 
 
         return "."
+
+
+# ANGLE BETWEEN HANDS OF A CLOCK->https://leetcode.com/problems/angle-between-hands-of-a-clock/?envType=daily-question&envId=2026-06-18
+# COMPLEXITY=O(1)
+
+# DATE-18/6
+# bhai logical question tha pura mathematical
+class Solution:
+    def angleClock(self, h: int, m: int) -> float:
+
+        minute=m*6
+        hour=30*(h%12) +0.5*m
+
+        diff=abs(minute-hour)
+
+        return min(360-diff,diff)
+
+
+         
