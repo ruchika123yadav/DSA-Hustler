@@ -662,7 +662,7 @@ class Solution:
 
 # RAT IN A MAZE->https://www.geeksforgeeks.org/problems/rat-in-a-maze-problem/1
 # COMPLEXITY=O(3^n) SPACE COMPLEXITY=O(n^2)
-
+# bhai chorr de recursion tu yrr
 
 class Solution:
     def ratInMaze(self, maze):

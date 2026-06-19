@@ -98,4 +98,25 @@ class Solution:
         return min(360-diff,diff)
 
 
-         
+# FIND THE HIGHEST ALTITUDE->https://leetcode.com/problems/find-the-highest-altitude/description/?envType=daily-question&envId=2026-06-19
+# COMPLEXITY=O(n) and space COMPLEXITY=O(1)
+# DAY-19/6
+
+# shi tha question simple
+class Solution:
+    def largestAltitude(self, gain: List[int]) -> int:
+        
+        if len(gain)==1:
+            return max(gain[0],0)
+
+        maxGain=max(gain[0],0)
+        summ=gain[0]
+
+        for i in range(1,len(gain)):
+            summ+=gain[i]
+            maxGain=max(maxGain,summ)
+
+
+        return maxGain
+
+        
