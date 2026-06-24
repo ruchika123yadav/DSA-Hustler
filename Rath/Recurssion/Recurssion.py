@@ -759,6 +759,43 @@ class Solution:
 
 
 
-        
+
+# COMBINATION SUM 2-https://leetcode.com/problems/combination-sum-ii/description/
+# COMPLEXITY=O(2^n*k) and SPACE COMPLEXITY=O(x*k)
+
+class Solution:
+    def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
+
+        res=[]
+        lis=[]
+        candidates.sort()
+
+        self.findCombination(0,candidates,target,res,lis)
+
+        return res
+
+
+    def findCombination(self,idx:int, candidates: List[int], target:int,res:List[int],lis:List[int]):
+
+        if target==0:
+            res.append(lis[:])
+            return
+
+
+        for i in range(idx,len(candidates)):
+            if i>idx and candidates[i]==candidates[i-1]: continue
+            if candidates[i]>target: break
+
+            
+            lis.append(candidates[i])
+            self.findCombination(i+1,candidates,target-candidates[i],res,lis)
+
+            lis.pop()
+
+         
+
+
+
+
 
         
