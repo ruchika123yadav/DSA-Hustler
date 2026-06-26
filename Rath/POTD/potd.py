@@ -267,7 +267,7 @@ class Solution:
 
 
 # COUNT SUBARRAY WITH MAJORITY ELEMENT | ->https://leetcode.com/problems/count-subarrays-with-majority-element-i/?envType=daily-question&envId=2026-06-25
-# COMPLEXITY=O(n^2)
+# COMPLEXITY=O(n^2) BRUTE FORCCE
 
 class Solution:
     def countMajoritySubarrays(self, nums: List[int], target: int) -> int:
@@ -289,8 +289,54 @@ class Solution:
         return res
 
 
+# //LITTLE BIT BETTER APPRAOCH:
+class Solution:
+    def countMajoritySubarrays(self, nums: List[int], target: int) -> int:
+
+        res=0
+
+        for i in range(len(nums)):
+            count=0
+            for j in range(i,len(nums)):
+                if nums[j]==target:
+                    count+=1
+                if nums[j]!=target:
+                    count-=1
+
+                if count>0:
+                    res+=1
+
         
+        return res
+
+
         
+
+# OPTIMAL Solution->https://leetcode.com/problems/count-subarrays-with-majority-element-ii/description/
+# COMPLEXITY=O(n)
+class Solution:
+    def countMajoritySubarrays(self, nums: List[int], target: int) -> int:
+        mapp={}
+        mapp[0]=1
+        res=0
+        validLeftPoints=0
+        cumSum=0
+
+        for i in range(len(nums)):
+            if nums[i]==target:
+                validLeftPoints+=mapp[cumSum]
+                cumSum+=1
+
+            else:
+                cumSum-=1
+                if cumSum in mapp:
+                    validLeftPoints-=mapp[cumSum]
+
+            mapp[cumSum]=mapp.get(cumSum,0)+1
+            res+=validLeftPoints
+
+
+        return res
 
         
 
