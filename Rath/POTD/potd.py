@@ -339,6 +339,29 @@ class Solution:
         return res
 
         
+# FIND THE MAXIMUM NUMBER OFELEMENT IN SUBSET->https://leetcode.com/problems/find-the-maximum-number-of-elements-in-subset/description/?envType=daily-question&envId=2026-06-27
+class Solution:
+    def maximumLength(self, nums: List[int]) -> int:
+        d = Counter(nums)
+        res = 1
 
+        for k in d:
+            if k == 1:
+                if d[k] & 1:
+                    res = max(res, d[k])
+                else:
+                    res = max(res, d[k] - 1)
+                continue
+            
+            total = 1
+            while d[k] >= 2:
+                k *= k
+                if k not in d:
+                    break
+                total += 2
+            
+            res = max(res, total)
+
+        return res
 
         
