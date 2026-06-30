@@ -135,6 +135,66 @@ class Solution:
 
         return prev
 
+
+# NUMBER OF SUBSTRING CONTAINING ALL TRHEE CHARACTER->https://leetcode.com/problems/number-of-substrings-containing-all-three-characters/description/?envType=daily-question&envId=2026-06-30
+# COMPLEXITY=O(2n)
+
+# BRUTE FORCE
+class Solution:
+    def numberOfSubstrings(self, s: str) -> int:
+        res=0
+        n=len(s)
+         
+
+        for i in range(n):
+            l=['a','b','c']
+            for j in range(i,n):
+                if s[j] in l:
+                    l.remove(s[j])
+                    if len(l)==0:
+                        res+=n-j
+                        break
+
+        return res
+
+        
+# OPTIMAL APPRAOCH
+# COMPLEXITY=O(n) SPACE COMPLEXITY=O(3)=O(1)
+class Solution:
+    def numberOfSubstrings(self, s: str) -> int:
+        res=0
+        n=len(s)
+
+        mapp={}
+        j=0
+
+        for i in range(len(s)):
+            mapp[s[i]]=mapp.get(s[i],0)+1
+            if len(mapp)==3:
+                while(len(mapp)>=3):
+                    res+=n-i
+                    mapp[s[j]]-=1
+                    if mapp[s[j]]==0:
+                        del mapp[s[j]]
+                    j+=1
+        
+        return res
+
+                
+
+                
+
+
+
+         
+
+         
+
+
+
+
+        
+
     
 
 
