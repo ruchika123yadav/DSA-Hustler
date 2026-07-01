@@ -180,7 +180,38 @@ class Solution:
         
         return res
 
-                
+
+    #LINKED LIST CYCLE || Floyd's Cycle-Finding Algorithm->https://leetcode.com/problems/linked-list-cycle-ii/description/
+
+
+    class Solution:
+    def detectCycle(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        # Edge case: empty list or single node with no cycle
+        if not head or not head.next:
+            return None
+
+        slow = head
+        fast = head
+        has_cycle = False
+
+        # Phase 1: Detect if a cycle exists
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+            
+            if slow == fast:
+                has_cycle = True
+                break
+
+        if not has_cycle:
+            return None
+
+        fast = head # Reset fast to the beginning
+        while slow != fast:
+            slow = slow.next
+            fast = fast.next  
+
+        return slow     
 
                 
 
