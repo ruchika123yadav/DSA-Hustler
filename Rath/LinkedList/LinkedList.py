@@ -216,7 +216,130 @@ class Solution:
                 
 
 
+# PALINDROME IN LINKED LIST 
 
+# BRUTE FORCE
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def isPalindrome(self, head: Optional[ListNode]) -> bool:
+
+        if head.next==None:
+            return True
+        
+        curr = head
+        l=[]
+        length=0
+        
+        while curr is not None:
+            l.append(curr.val)
+            curr=curr.next
+
+        res="".join(str(x) for x in l)
+
+        return res==res[::-1]
+
+
+
+        
+# OPTIMAL APPRAOCH:
+class Solution:
+    def isPalindrome(self, head: Optional[ListNode]) -> bool:
+
+        if head.next==None:
+            return True
+
+               slow=head
+        fast=head
+        curr=head
+
+        while fast.next and fast.next.next is not None:
+            slow=slow.next
+            fast=fast.next.next
+
+        secondHalf=self.reverse(slow.next)
+
+        while secondHalf is not None:
+            if curr.val!=secondHalf.val:
+                return False
+            curr=curr.next
+            secondHalf=secondHalf.next
+        
+        return True
+
+    def reverse(self,head: Optional[ListNode])-> Optional[ListNode]:
+
+        if head.next is None:
+            return head
+
+        prev=None
+        curr=head
+        Next=head
+
+        while Next is not None:
+            Next=curr.next
+            curr.next=prev
+            prev=curr
+            curr=Next        
+         
+        return prev
+
+
+# ODD EVEN LINKED LIST->https://leetcode.com/problems/odd-even-linked-list/description/
+# COMPLEXITY=O(n) AND SPACE COMPLEXITY=O(n)
+
+# BRUTE FORCE
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def oddEvenList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+
+        if head is None or head.next is None or head.next.next is None:
+            return head
+
+        odd=[]
+        even=[]
+        
+        oddIndex=head
+        evenIndex=head.next
+
+        while oddIndex is not None:
+            if oddIndex.next is None:
+                odd.append(oddIndex.val)
+                break
+                    
+            odd.append(oddIndex.val)
+            oddIndex=oddIndex.next.next
+
+
+        
+        while evenIndex.next:
+            if evenIndex.next.next is None:
+                even.append(evenIndex.val)
+                break
+
+            even.append(evenIndex.val)
+            evenIndex=evenIndex.next.next
+         
+        curr=head
+
+        for i in range(len(odd)):
+            curr.val=odd[i]
+            curr=curr.next
+
+        for i in range(len(even)):
+            curr.val=even[i]
+            curr=curr.next
+
+        return head
+
+        
          
 
          
