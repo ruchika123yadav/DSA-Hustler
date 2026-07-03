@@ -21,11 +21,7 @@ class Solution:
 # DELETE NODE IN A LINKED LIST->https://leetcode.com/problems/delete-node-in-a-linked-list/description/
 # COMPLEXITY=O(1)
 
-# Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
+ 
 
 class Solution:
     def deleteNode(self, node):
@@ -89,11 +85,7 @@ class Solution:
 # MIDDLE OF THE LINKED LIST->https://leetcode.com/problems/middle-of-the-linked-list/description/
 # COMPLEXITY=O(n)
 
-# Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, val=0, next=None):
-#         self.val = val
-#         self.next = next
+ 
 class Solution:
     def middleNode(self, head: Optional[ListNode]) -> Optional[ListNode]:
 
@@ -111,12 +103,7 @@ class Solution:
 # REVERSE THE LINKED LIST->https://leetcode.com/problems/reverse-linked-list/submissions/2049944611/
 # COMPLEXITY=O(n)
 
-# Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, val=0, next=None):
-#         self.val = val
-#         self.next = next
-class Solution:
+ 
     def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
 
         if head is None:
@@ -219,11 +206,7 @@ class Solution:
 # PALINDROME IN LINKED LIST 
 
 # BRUTE FORCE
-# Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, val=0, next=None):
-#         self.val = val
-#         self.next = next
+ 
 class Solution:
     def isPalindrome(self, head: Optional[ListNode]) -> bool:
 
@@ -292,12 +275,7 @@ class Solution:
 # COMPLEXITY=O(n) AND SPACE COMPLEXITY=O(n)
 
 # BRUTE FORCE
-# Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, val=0, next=None):
-#         self.val = val
-#         self.next = next
-class Solution:
+ 
     def oddEvenList(self, head: Optional[ListNode]) -> Optional[ListNode]:
 
         if head is None or head.next is None or head.next.next is None:
@@ -340,7 +318,154 @@ class Solution:
         return head
 
         
-         
+# OPTIMAL SOLUTION: COMPLEXITY=O(n) and SPACE COMPLEXITY=O(1)
+
+ 
+    def oddEvenList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+
+        if head is None or head.next is None or head.next.next is None:
+            return head
+
+        odd=head
+        even=head.next
+        evenHead=head.next
+
+        while even and even.next is not None:
+            odd.next=odd.next.next
+            even.next=even.next.next
+
+            odd=odd.next
+            even=even.next
+
+        odd.next=evenHead
+
+        return head
+
+
+# SORT LIST:> https://leetcode.com/problems/sort-list/description/
+# BRUTE FORCE lagega ye shurhu me lekin ye hi optimize hai mere bhaii 
+
+ 
+class Solution:
+    def sortList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+
+        l=[]
+
+        curr=head
+
+        while curr is not None:
+            l.append(curr.val)
+            curr=curr.next
+
+        l.sort()
+        curr=head
+
+        for i in range(len(l)):
+            curr.val=l[i]
+            curr=curr.next
+
+        return head
+
+
+# OPTIMIZE:wo merge wala bkwss hatao ushe ha lekin sala wo interviwer puch skta to krr le bhai 
+class Solution:
+    def sortList(self, head):
+        if not head or not head.next:
+            return head
+
+        slow, fast = head, head.next
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+
+        mid = slow.next
+        slow.next = None
+
+        left = self.sortList(head)
+        right = self.sortList(mid)
+
+        return self.merge(left, right)
+
+    def merge(self, l1, l2):
+        dummy = ListNode()
+        cur = dummy
+
+        while l1 and l2:
+            if l1.val < l2.val:
+                cur.next = l1
+                l1 = l1.next
+            else:
+                cur.next = l2
+                l2 = l2.next
+            cur = cur.next
+
+        cur.next = l1 or l2
+        return dummy.next
+
+
+# REMOVE NTH NODE FORM THE LIST->https://leetcode.com/problems/remove-nth-node-from-end-of-list/description/
+# COMPLEXITY=O(n)
+
+ 
+class Solution:
+    def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
+
+        if head.next is None:
+            return None
+
+        length=0
+        curr=head
+
+        while curr is not None:
+            length+=1
+            curr=curr.next
+
+        curr=head
+
+        k=length-n-1
+
+        if length-n==0:
+            head=head.next
+            return head
+        
+
+        while k!=0:
+            curr=curr.next
+            k-=1
+        
+
+        curr.next=curr.next.next
+
+        return head
+    
+        
+       
+# DELETE THE MIDDLE NODE OF THE LL->https://leetcode.com/problems/delete-the-middle-node-of-a-linked-list/
+# COMPLEXITY=O(n)
+
+ 
+    def deleteMiddle(self, head: Optional[ListNode]) -> Optional[ListNode]:
+
+        if head.next is None:
+            return None
+
+        curr=head
+        fast=head
+        slow=head
+
+        while fast and fast.next is not None:
+            slow=slow.next
+            fast=fast.next.next
+
+        
+        while curr.next!=slow:
+            curr=curr.next
+
+        curr.next=curr.next.next
+
+        return head
+        
+        
 
          
 
