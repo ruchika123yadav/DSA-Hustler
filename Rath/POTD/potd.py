@@ -265,9 +265,141 @@ class Solution:
         return res % mod
         
 
+
+# COUNT SUBARRAY WITH MAJORITY ELEMENT | ->https://leetcode.com/problems/count-subarrays-with-majority-element-i/?envType=daily-question&envId=2026-06-25
+# COMPLEXITY=O(n^2) BRUTE FORCCE
+
+class Solution:
+    def countMajoritySubarrays(self, nums: List[int], target: int) -> int:
+
+        res=0
+
+        for i in range(len(nums)):
+            count=0
+            for j in range(i,len(nums)):
+                if nums[j]==target:
+                    count+=1
+
+                length=(j-i+1)
+
+                if 2*count>length:
+                    res+=1
+
         
+        return res
+
+
+# //LITTLE BIT BETTER APPRAOCH:
+class Solution:
+    def countMajoritySubarrays(self, nums: List[int], target: int) -> int:
+
+        res=0
+
+        for i in range(len(nums)):
+            count=0
+            for j in range(i,len(nums)):
+                if nums[j]==target:
+                    count+=1
+                if nums[j]!=target:
+                    count-=1
+
+                if count>0:
+                    res+=1
+
+        
+        return res
+
 
         
 
+# OPTIMAL Solution->https://leetcode.com/problems/count-subarrays-with-majority-element-ii/description/
+# COMPLEXITY=O(n)
+class Solution:
+    def countMajoritySubarrays(self, nums: List[int], target: int) -> int:
+        mapp={}
+        mapp[0]=1
+        res=0
+        validLeftPoints=0
+        cumSum=0
+
+        for i in range(len(nums)):
+            if nums[i]==target:
+                validLeftPoints+=mapp[cumSum]
+                cumSum+=1
+
+            else:
+                cumSum-=1
+                if cumSum in mapp:
+                    validLeftPoints-=mapp[cumSum]
+
+            mapp[cumSum]=mapp.get(cumSum,0)+1
+            res+=validLeftPoints
+
+
+        return res
 
         
+# FIND THE MAXIMUM NUMBER OFELEMENT IN SUBSET->https://leetcode.com/problems/find-the-maximum-number-of-elements-in-subset/description/?envType=daily-question&envId=2026-06-27
+class Solution:
+    def maximumLength(self, nums: List[int]) -> int:
+        d = Counter(nums)
+        res = 1
+
+        for k in d:
+            if k == 1:
+                if d[k] & 1:
+                    res = max(res, d[k])
+                else:
+                    res = max(res, d[k] - 1)
+                continue
+            
+            total = 1
+            while d[k] >= 2:
+                k *= k
+                if k not in d:
+                    break
+                total += 2
+            
+            res = max(res, total)
+
+        return res
+
+# NUMBER OF STRINGS THAT APPEAR AS SUBSTRING IN WORD->https://leetcode.com/problems/number-of-strings-that-appear-as-substrings-in-word/?envType=daily-question&envId=2026-06-29
+# COMPLEXITY=O(n)
+
+class Solution:
+    def numOfStrings(self, patterns: List[str], word: str) -> int:
+
+        res=0
+
+        for i in range(len(patterns)):
+            if len(patterns[i])<=len(word) and patterns[i] in word:
+                res+=1
+
+
+        return res   
+
+# MAXIMUM ELEMENT AFTER DECREASING AND REARRANGING->https://leetcode.com/problems/maximum-element-after-decreasing-and-rearranging/description/?envType=daily-question&envId=2026-06-28
+# COMPLEXITY=O(nlog(n))
+
+class Solution:
+    def maximumElementAfterDecrementingAndRearranging(self, arr: List[int]) -> int:
+        if len(arr)==1:
+            return 1
+
+        arr.sort()
+        maxEl=0
+
+        if arr[0]!=1:
+            arr[0]=1
+        
+        for i in range(1,len(arr)):
+            if abs(arr[i] - arr[i - 1]) <= 1:
+                maxEl=max(maxEl,arr[i],arr[i-1])
+            else:
+                arr[i]=arr[i-1]+1
+                maxEl=max(maxEl,arr[i])
+
+        return maxEl
+
+
