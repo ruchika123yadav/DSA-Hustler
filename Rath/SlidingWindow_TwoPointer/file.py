@@ -162,3 +162,59 @@ class Solution:
 
             
         
+# "3 POINTER APPRAOCH" ->https://leetcode.com/problems/count-number-of-nice-subarrays/
+# COMPLEXITY=O(2n)
+ 
+class Solution:
+    def numberOfSubarrays(self, nums: List[int], k: int) -> int:
+        d1 = 0
+        d2 = 0
+        odd_count = 0
+        res = 0
+        temp_left_choices = 0   
+        while d2 < len(nums):
+             if nums[d2] % 2 != 0:
+                odd_count += 1
+                temp_left_choices = 0 
+            
+            
+            while odd_count == k:
+                temp_left_choices += 1
+                if nums[d1] % 2 != 0:
+                    odd_count -= 1
+                d1 += 1
+            
+            res += temp_left_choices
+            d2 += 1
+            
+        return res
+
+# SAME QUESTION BUT APPRAOCH LIKE THE BIARY SUN WALA BHAII jitne bhi odd hai unko 1 maan lo or even ko 0:
+ 
+ class Solution:
+    def numberOfSubarrays(self, nums: List[int], k: int) -> int:
+        return self.subarr(nums,goal)-self.subarr(nums,goal-1)
+
+    
+    def subarr(self,nums: List[int], goal: int) -> int:
+
+        if goal<0:
+            return 0
+
+        left=0
+        right=0
+        preSum=0
+        count=0
+
+        while right<len(nums):
+
+            preSum+=nums[right]%2
+
+            while preSum>goal:
+                preSum-=nums[left]%2
+                left+=1
+
+            count+=right-left+1
+            right+=1
+
+        return count
