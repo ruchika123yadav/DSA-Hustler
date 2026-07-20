@@ -403,3 +403,69 @@ class Solution:
         return maxEl
 
 
+
+# CONCATE NON-ZERO DIGITS AND MULTIPLY  BY SUM |->https://leetcode.com/problems/concatenate-non-zero-digits-and-multiply-by-sum-i/description/
+# complexity=O(length of number)
+
+# two appraoches: comment one and uncomment one
+
+class Solution:
+    def sumAndMultiply(self, n: int) -> int:
+
+        if n==0:
+            return 0
+        
+        s=str(n)
+        res=""
+        summ=0
+
+        # while n>0:
+        #     digit=n%10
+        #     if digit!=0:
+        #         res+=str(digit)
+        #     summ+=digit
+        #     n=n//10
+
+        for i in range(len(s)):
+            if s[i]!='0':
+                res+=s[i]
+            summ+=int(s[i])
+
+        return summ*int(res)
+
+        # return summ*int(res[::-1])
+
+
+
+
+# THE SMALLEST LINE OF CODE I EVER WRITTEN :
+# GCD OF ODD AND EVEN SUM->https://leetcode.com/problems/gcd-of-odd-and-even-sums/description/?envType=daily-question&envId=2026-07-15
+# COMPLEXITY=O(1)
+class Solution:
+    def gcdOfOddEvenSums(self, n: int) -> int:
+
+        # if n==1:
+        #     return 1
+
+        # sumOdd=1
+        # sumEven=0
+
+
+        # for i in range(n+1):
+        #     sumOdd+=(i*2)-1
+        #     sumEven+=i*2
+        
+     
+        
+        # for i in range(sumOdd,-1,-1):
+        #     if sumOdd%i==0 and sumEven%i==0:
+        #         return i
+
+        # return 1
+
+        return n
+
+
+
+        
+

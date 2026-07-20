@@ -527,7 +527,80 @@ class Solution:
 
 # ish ticchu question ne jo mere dimmag ka dhi kiya hai faaltu kaa mtlb bss whi meme yaad aa rha hia-> beta tumshe na ho payega
         
+# ROTATE LIST:->https://leetcode.com/problems/rotate-list/
+# COMPLEXITY=(k)
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def rotateRight(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
 
+        if head is None or head.next is None:
+            return head
+
+        length=0
+        curr=head
+
+        while curr is not None:
+            length+=1
+            curr=curr.next
+
+        k=k%length
+
+        if k==0:
+            return head
+
+        n=length-k
+        prev=head
+        mainHead=head
+
+        while n>0:
+            prev=mainHead
+            mainHead=mainHead.next
+            n-=1
+
+        prev.next=None
+        curr=mainHead
+
+        while curr.next is not None:
+            curr=curr.next
+
+        curr.next=head
+        head=mainHead
+
+        return head
+
+
+
+# INTERSECTION OF TWO LINKED LIST->https://leetcode.com/submissions/detail/2058963970/
+# COMPLEXITY=O(headA+headB)
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution:
+    def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> Optional[ListNode]:
+
+        a,b=headA,headB
+
+        while a!=b:
+            a=a.next if a else headB
+            b=b.next if b else headA
+
+        return a
+
+       
+        
+
+
+        
+
+        
     
 
 
