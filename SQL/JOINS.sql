@@ -47,3 +47,49 @@ from age_breakdown a1
 inner join activities  a2
 on a1.user_id=a2.user_id and a2.activity_type!='chat'
 group by a1.age_bucket
+
+
+-- TOP 3 UNIQUE SALARIES->https://datalemur.com/questions/sql-top-three-salaries
+ 
+ select department_name,	name	,salary 
+ from(
+ select d.department_name,	e.name	,e.salary,
+ dense_rank() over(partition by e.department_id order by e.salary desc)as rnk
+ from department d 
+ left join employee e 
+ on d.department_id=e.department_id
+ )temp
+ 
+ where rnk<=3
+ order by department_name,salary desc, name asc
+
+
+-- VERY GOOD QUESTION ->https://leetcode.com/problems/human-traffic-of-stadium/
+
+-- Bhai, ye id - ROW_NUMBER() wali trick LeetCode ki Human Traffic of Stadium (Problem 601) ki sabse smart aur famous trick hai!
+
+with cte as(
+
+select *,id-row_number() over() as id_diff
+from Stadium
+where people>99
+)
+
+select id ,visit_date , people 
+from cte 
+where id_diff in (select id_diff from cte group by id_diff having count(id_diff)>2)
+group by id_diff
+order by visit_date
+
+ 
+
+-- Y-on-Y Growth Rate RESPECT TO EACH PRODUCT->https://datalemur.com/questions/yoy-growth-rate
+-- NICE QUESTION
+ select EXTRACT(YEAR FROM transaction_date) as year,
+ product_id,
+ spend as curr_year_spend,
+ lag(spend,1) over(partition by product_id  order by transaction_date) as prev_year_spend,
+ round((spend -lag(spend,1) over(partition by product_id  order by transaction_date))*100/lag(spend,1) over(partition by product_id  order by transaction_date),2) as yoy_rate
+ 
+ from user_transactions 
+  order by product_id,year
