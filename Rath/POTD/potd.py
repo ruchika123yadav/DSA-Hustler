@@ -490,4 +490,31 @@ class Solution:
 
 
         
+        # Maximum product of two elmenet in array->https://leetcode.com/problems/maximum-product-of-two-elements-in-an-array/?envType=daily-question&envId=2026-07-27
+
+        class Solution:
+    def maxProduct(self, nums: List[int]) -> int:
+
+        if len(nums)==2:
+            return (nums[0]-1)*(nums[1]-1)
+        num1=0
+        p=0
+        for i in range(len(nums)):
+            if nums[i]>num1:
+                num1=nums[i]
+                p=i
+        num2=0
+        
+        for i in range(len(nums)):
+            if i==p: continue
+
+            if num2<nums[i] and nums[i]<=num1:
+                num2=nums[i]
+
+
+        return (num1-1)*(num2-1)
+        
+
+         
+
 

@@ -141,3 +141,58 @@ select distinct visited_on,
             range between interval 6 day PRECEDING and current row
     )
     Limit 6, 999
+
+
+
+
+-- Tweets' Rolling Averages
+-- Given a table of tweet data over a specified time period, calculate the 3-day rolling average of tweets for each user. Output the user ID, tweet date, and rolling averages rounded to 2 decimal places.
+
+
+
+select user_id,tweet_date,
+round(avg(tweet_count) over(partition by user_id order by tweet_date
+rows between 2 preceding and current row),2) as rolling_avg_3d
+from tweets
+
+
+
+-- Server Utilization Time->https://datalemur.com/questions/total-utilization-time
+
+WITH running_time AS (
+  SELECT 
+    server_id,
+    session_status,
+    status_time AS start_time,
+    LEAD(status_time) OVER (
+      PARTITION BY server_id 
+      ORDER BY status_time
+    ) AS stop_time
+  FROM server_utilization
+)
+SELECT 
+  FLOOR(
+    SUM(EXTRACT(EPOCH FROM (stop_time - start_time)) / 86400)
+  ) AS total_uptime_days
+FROM running_time
+WHERE session_status = 'start';
+
+
+
+-- ODD AND EVEN MEASUREMENTS->https://datalemur.com/questions/odd-even-measurements
+with cte as(
+select *,row_number() over(partition by measurement_time::date order by measurement_time ) as timee
+from measurements
+)
+
+select measurement_time::date as measurement_day,
+sum(case when timee%2!=0 then measurement_value else 0 end) as odd_sum,
+sum(case when timee%2=0. then measurement_value else 0 end) as even_sum
+from cte
+-- from measurements 
+group by  measurement_time::date
+order by measurement_day
+-- -- group by measurement_time
+
+
+-- 
