@@ -516,5 +516,15 @@ class Solution:
         
 
          
+# calculate the value after converting the base
+
+class Solution:
+    def sumBase(self, n: int, k: int) -> int:
+        total=0
+
+        while n>0:
+            total+=n%k #get the last digit
+            n//=k   #remove the last digit
 
 
+        return total
