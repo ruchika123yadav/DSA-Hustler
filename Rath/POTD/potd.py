@@ -528,3 +528,25 @@ class Solution:
 
 
         return total
+
+
+# MINIMUM NUMBER OF PUSHES TO TYPE WORD |->https://leetcode.com/problems/minimum-number-of-pushes-to-type-word-i/?envType=daily-question&envId=2026-07-30
+# COMPLEXITY=O(n)
+
+        class Solution:
+    def minimumPushes(self, word: str) -> int:
+        k=len(word)
+
+        if k<=8:
+            return k
+
+
+        cost=0
+        for i in range(k):
+            ce=i//8 +1
+            cost+=ce
+            
+
+        return cost
+
+        

@@ -224,3 +224,62 @@ SELECT
 FROM Accounts;
 
 
+-- Data Science Skills->https://datalemur.com/questions/matching-skills
+
+with cte as(
+ select * from candidates
+ where skill in ('Python','Tableau','PostgreSQL')
+ 
+)
+ 
+select candidate_id from cte
+group by candidate_id
+having count(skill)=3
+
+
+-- REARRANGED PRODCUT TABLE->https://leetcode.com/problems/rearrange-products-table/description/
+
+# Write your MySQL query statement below
+
+select product_id, "store1" as store , store1 as price from Products
+where store1 is not null
+union all
+
+select product_id, "store2" as store , store2 as price from Products
+where store2 is not null
+union all
+
+select product_id, "store3" as store , store3 as price from Products
+where store3 is not null
+ 
+
+--  ACTOR AND DIRECTOR WHO COPERATED ATLEAST 3 TIMES->https://leetcode.com/problems/actors-and-directors-who-cooperated-at-least-three-times/description/
+
+# Write your MySQL query statement below
+
+
+select actor_id,director_id from ActorDirector
+group by actor_id ,director_id
+having count(*)>=3
+
+
+
+-- LITERALLY FUCK MICROSOFT 
+-- SUPER CLOUD CUSTOMER->https://datalemur.com/questions/supercloud-customer
+
+
+WITH supercloud_cust AS (
+  SELECT 
+    customers.customer_id, 
+    COUNT(DISTINCT products.product_category) AS product_count
+  FROM customer_contracts AS customers
+  INNER JOIN products 
+    ON customers.product_id = products.product_id
+  GROUP BY customers.customer_id
+)
+
+SELECT customer_id
+FROM supercloud_cust
+WHERE product_count = (
+  SELECT COUNT(DISTINCT product_category) FROM products
+);
