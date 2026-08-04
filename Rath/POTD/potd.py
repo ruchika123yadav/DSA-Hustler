@@ -594,3 +594,20 @@ class Solution:
                 return min(-piles[i] + dp(i+1,j), -piles[j] + dp(i,j-1))
 
         return dp(0, N - 1) > 0
+
+
+# FIND MISSING ELEMENTS->https://leetcode.com/problems/find-missing-elements/description/?envType=daily-question&envId=2026-08-04
+# COMPLEXITY=O(n)
+
+
+        class Solution:
+    def findMissingElements(self, nums: List[int]) -> List[int]:
+        nums.sort()
+        a=[]
+        j=0
+        for i in range(nums[0],nums[-1]):
+            if nums[j]!=i:
+                a.append(i)
+            else:
+                j+=1
+        return a
