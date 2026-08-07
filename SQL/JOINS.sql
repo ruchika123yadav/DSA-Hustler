@@ -309,3 +309,6 @@ SELECT
   ROUND(100.0 * send_timespent / total_timespent, 2) AS send_perc, 
   ROUND(100.0 * open_timespent / total_timespent, 2) AS open_perc 
 FROM snaps_statistics;
+
+
+ 
