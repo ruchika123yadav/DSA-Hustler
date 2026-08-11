@@ -632,3 +632,29 @@ class Solution:
         while not check(n):
             n += 1
         return n
+
+
+
+# SMALLEST MISSING INTEGER GREATER THAN SEQUENTIAL PREFIX SUM->https://leetcode.com/problems/smallest-missing-integer-greater-than-sequential-prefix-sum/description/?envType=daily-question&envId=2026-08-11
+# COMPLAXITY=O(n)
+# one of the shittiest description i ever read in my life on leetcode totally shittttt broo
+
+class Solution:
+    def missingInteger(self, nums: List[int]) -> int:
+
+        if len(nums)==1:
+            return nums[0]+1
+
+        res=nums[0]
+    
+        for i in range(1,len(nums)):
+            if nums[i]==nums[i-1]+1:
+                res+=nums[i]
+            else:
+                break
+
+        while res in nums:
+            res=res+1
+
+        return res
+            
