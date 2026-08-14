@@ -683,3 +683,35 @@ class Solution:
         return res
 
             
+
+# MAXIMUM LENGTH SUBSTRING WITH 2 OCCURENCES->https://leetcode.com/problems/maximum-length-substring-with-two-occurrences/description/?envType=daily-question&envId=2026-08-14
+# COMPLEXITY=O(n)
+
+class Solution:
+    def maximumLengthSubstring(self, s: str) -> int:
+
+        n=len(s)
+
+        if n==2 or n==1:
+            return n
+
+        hm={}
+        j=0
+        res=0
+
+        
+        for i in range(len(s)):
+            c=s[i]
+            hm[c]=hm.get(c,0)+1
+
+            while hm[c]>2:
+                hm[s[j]]-=1
+                j+=1
+
+            
+            res=max(res,i-j+1)
+
+
+        return res
+
+            
