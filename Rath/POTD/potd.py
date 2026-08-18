@@ -714,4 +714,58 @@ class Solution:
 
         return res
 
-            
+
+# ONE OF THE CHUTIYA EASY QUESTION I EVER SOLVED
+# FIND THE LARGEST ALMOST MISSING INTEGER->https://leetcode.com/problems/find-the-largest-almost-missing-integer/description/?envType=daily-question&envId=2026-08-18
+# COMPLEXITY=O(nlog(n)) SPACE COMPLEXITY=O(1)
+
+ 
+class Solution:
+    def largestInteger(self, nums: List[int], k: int) -> int:
+        n = len(nums)
+
+        if n == k:
+            return max(nums)
+        
+        l = []
+
+        if k == 1:
+            res = -1
+            nums.sort()
+
+            for i in range(1, n - 1):
+                left = nums[i] - nums[i - 1]
+                right = nums[i + 1] - nums[i]
+                
+                if i == 1:
+                    if nums[i - 1] != nums[i]:
+                        res = nums[0]
+                
+                if left != 0 and right != 0:
+                    res = max(res, nums[i])
+
+            if nums[n - 1] != nums[n - 2]:
+                res = max(res, nums[n - 1])
+
+            return res
+
+        else: 
+            hm = {}
+            first = nums[0]
+            last = nums[n - 1]
+            res = -1
+        
+            for i in range(n):
+                if nums[i] == first:
+                    hm[first] = hm.get(first, 0) + 1
+                elif nums[i] == last:
+                    hm[last] = hm.get(last, 0) + 1
+                else:
+                    continue
+        
+            for key, value in hm.items():
+                if value > 1:
+                    continue
+                res = max(res, key)
+        
+        return res    
